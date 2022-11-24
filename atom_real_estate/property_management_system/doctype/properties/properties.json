@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "format:{building_code}-{floor_code}-{name1}",
+ "autoname": "field:name1",
  "creation": "2022-09-01 13:54:12.276760",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -9,30 +9,41 @@
   "identification_section",
   "name1",
   "property_group",
+  "property_type",
+  "street_no",
+  "category",
   "column_break_4",
   "company",
   "cost_center",
+  "property_nature",
+  "phase",
   "unit_characteristics_section",
   "unit_owner",
   "title_deed_number",
-  "title_deed_date",
   "master_bedroom",
   "column_break_11",
   "cnic",
   "bedroom",
+  "title_deed_date",
   "common_bathroom",
   "unit_details_section",
+  "plot_no",
   "building",
   "building_code",
   "area",
   "builtup_area",
   "carpet_area",
+  "east",
+  "north",
   "column_break_22",
   "floor",
   "floor_code",
   "rent",
+  "size",
   "security_deposit",
   "status",
+  "west",
+  "south",
   "more_information_section",
   "unit_assets",
   "column_break_30",
@@ -50,15 +61,15 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Name",
-   "reqd": 1
+   "unique": 1
   },
   {
    "fieldname": "property_group",
    "fieldtype": "Select",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Property Group",
-   "options": "\nFor Sale\nFor Lease",
-   "reqd": 1
+   "options": "\nFor Sale\nFor Lease"
   },
   {
    "fieldname": "column_break_4",
@@ -69,8 +80,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Company",
-   "options": "Company",
-   "reqd": 1
+   "options": "Company"
   },
   {
    "fieldname": "cost_center",
@@ -81,7 +91,7 @@
   {
    "fieldname": "unit_characteristics_section",
    "fieldtype": "Section Break",
-   "label": "UNIT CHARACTERISTICS"
+   "label": "Ownership Details"
   },
   {
    "fieldname": "unit_owner",
@@ -112,16 +122,19 @@
   {
    "fieldname": "bedroom",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Bedroom"
   },
   {
    "fieldname": "master_bedroom",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Master bedroom"
   },
   {
    "fieldname": "common_bathroom",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Common bathroom"
   },
   {
@@ -130,6 +143,7 @@
    "label": "UNIT DETAILS"
   },
   {
+   "depends_on": "eval:doc.property_type==\"Apartments\"",
    "fieldname": "building",
    "fieldtype": "Link",
    "label": "Building",
@@ -139,22 +153,25 @@
    "fetch_from": "building.building_abbr",
    "fieldname": "building_code",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Building Code"
   },
   {
    "fieldname": "area",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Area",
    "options": "Area"
   },
   {
    "fieldname": "builtup_area",
    "fieldtype": "Float",
-   "label": "Builtup area"
+   "label": "Builtup area(SQYDS)"
   },
   {
    "fieldname": "carpet_area",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Carpet area"
   },
   {
@@ -162,6 +179,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.property_type==\"Apartments\"",
    "fieldname": "floor",
    "fieldtype": "Link",
    "label": "Floor",
@@ -171,16 +189,19 @@
    "fetch_from": "floor.floor_abbr",
    "fieldname": "floor_code",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Floor Code"
   },
   {
    "fieldname": "rent",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Rent"
   },
   {
    "fieldname": "security_deposit",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Security Deposit"
   },
   {
@@ -214,11 +235,70 @@
    "fieldname": "abbr",
    "fieldtype": "Data",
    "label": "Abbr"
+  },
+  {
+   "fieldname": "street_no",
+   "fieldtype": "Data",
+   "label": "Street No"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Category"
+  },
+  {
+   "fieldname": "size",
+   "fieldtype": "Data",
+   "label": "Size/Dimensions"
+  },
+  {
+   "fieldname": "east",
+   "fieldtype": "Data",
+   "label": "East"
+  },
+  {
+   "fieldname": "north",
+   "fieldtype": "Data",
+   "label": "North"
+  },
+  {
+   "fieldname": "west",
+   "fieldtype": "Data",
+   "label": "West"
+  },
+  {
+   "fieldname": "south",
+   "fieldtype": "Data",
+   "label": "South"
+  },
+  {
+   "fieldname": "property_nature",
+   "fieldtype": "Data",
+   "label": "Property Nature"
+  },
+  {
+   "fieldname": "property_type",
+   "fieldtype": "Select",
+   "label": "Property Type",
+   "options": "\nPlot\nApartments\nOffice"
+  },
+  {
+   "depends_on": "eval:doc.property_type==\"Plot\"",
+   "fieldname": "phase",
+   "fieldtype": "Data",
+   "label": "Phase"
+  },
+  {
+   "depends_on": "eval:doc.property_type==\"Plot\"",
+   "fieldname": "plot_no",
+   "fieldtype": "Data",
+   "label": "Plot No"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-12 18:00:24.603348",
+ "modified": "2022-11-24 14:31:16.326757",
  "modified_by": "Administrator",
  "module": "Property Management System",
  "name": "Properties",
